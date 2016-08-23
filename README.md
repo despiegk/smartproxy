@@ -34,8 +34,8 @@ Clone this repo on the router, then to make it easy, make a symlink to access it
 ```
 mkdir -p /opt/code/github/jumpscale
 cd /opt/code/github/jumpscale
-git clone https://github.com/0-complexity/playenv
-ln -s /opt/code/github/jumpscale/playenv/dnsmasq-alt /opt/dnsmasq-alt
+git clone https://github.com/despiegk/smartproxy
+ln -s /opt/code/github/jumpscale/smartproxy /opt/dnsmasq-alt
 ```
 
 And install jumpscale8 which will be needed:
