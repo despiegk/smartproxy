@@ -171,7 +171,7 @@ class InterceptResolver(BaseResolver):
             return reply
 
         # Check local cache
-        cache = j.core.db.get("dns.cache.%s" % domain)
+        cache = j.core.db.get("dns:cache:%s" % domain)
         if cache != None:
             print("cache hit: %s" % domain)
             reply.rr = RR.fromZone(cache)
@@ -197,7 +197,7 @@ class InterceptResolver(BaseResolver):
         # Caching only if the domain was resolved correctly
         if len(reply.rr) > 0:
             print("remember in cache:%s" % domain)
-            j.core.db.setex("dns.cache.%s" % domain, zone, 3600)
+            j.core.db.setex("dns:cache:%s" % domain, zone, 3600)
 
         self.hit(domain)
 
@@ -240,10 +240,12 @@ if __name__ == '__main__':
     resolver.ignore = []
     resolver.ignore.append("microsoft.com")
     resolver.ignore.append("apple.com")
-    resolver.ignore.append("dropbox.com")
+    resolver.ignore.append("dropbox")
     resolver.ignore.append("office365")
     resolver.ignore.append("live.com")
     resolver.ignore.append("update")
+    resolver.ignore.append("upgrade")
+    resolver.ignore.append("android")
     resolver.ignore.append("download")
     resolver.ignore.append("qobuz")
     resolver.ignore.append("deezer.com")
@@ -272,6 +274,16 @@ if __name__ == '__main__':
     resolver.ignore.append("acer.com")
     resolver.ignore.append("asus.com")
     resolver.ignore.append("asustek")
+    resolver.ignore.append("samsung")
+    resolver.ignore.append("skype")
+    resolver.ignore.append("crashlytics")
+    resolver.ignore.append("btsync")
+    resolver.ignore.append("google-analytics")
+    resolver.ignore.append("googledrive")
+    resolver.ignore.append("play.google.com")
+    resolver.ignore.append("play.")
+
+    # resolver.ignore = []
 
     resolver.reset()
 
