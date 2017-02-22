@@ -145,7 +145,7 @@ pip3 install mitmproxy
 ```
 source /opt/jumpscale8/env.sh
 cd /opt/dnsmasq-alt
-mitmdump -T -d -p 8443 -s http-filter.py
+mitmdump -T -d -p 8443 -s http-filter-new.py
 ```
 
 alternatives
