@@ -39,11 +39,7 @@ ln -s /opt/code/github/jumpscale/smartproxy /opt/dnsmasq-alt
 ```
 
 And install jumpscale8 which will be needed:
-```
-cd /tmp/
-apt-get install -y python3.5 curl
-curl -k https://raw.githubusercontent.com/Jumpscale/jumpscale_core8/master/install/install.sh > install.sh;bash install.sh
-```
+- see https://github.com/Jumpscale/jumpscale_core8/tree/8.2.0_ays_noHrd  (branch can be changed by now)
 
 It's useful to run every daemons in a tmux session to be able to watch them easier.
 
@@ -69,7 +65,16 @@ You can run it: `cd /opt/dnsmasq-alt/wifi-special-dongle/ && bash -x setup.sh`
 
 For information, dongle usb ID is `0bda:818b`.
 
-Change the interface name in the configuration file: `/opt/dnsmasq-alt/wifi-special-dongle/hostapd.conf`
+to check that the interface is there do
+```
+lsusb
+```
+
+need to find '0bda:818b'
+
+- Change the interface name in the configuration file: `/opt/dnsmasq-alt/wifi-special-dongle/hostapd.conf`
+- to see the interface to 'ip a'
+
 
 Run hostapd (in a tmux): `/opt/netpoc/hostapd-2.5/hostapd/hostapd /opt/dnsmasq-alt/wifi-special-dongle/hostapd.conf`
 
