@@ -19,6 +19,22 @@ iface br0 inet static
 
 ```
 
+# Firewall rules
+
+In the PoC used in El Gouna, the firewall was setup using nftables.
+The ruleset can be found on the `nftables.conf` file.
+
+This firewall rules makes transparent redirections and some basic filtering.
+Apply it at the end to make the redirections works when all the proxies are set up.
+
+- Copy the firewall rules file to the system one: `cp /opt/dnsmasq-alt/nftables.conf /etc/`
+- Set the interface correctly: `sed -i s/eth1/WAN_INTERFACE/g /etc/nftables.conf` (adapt WAN_INTERFACE)
+- Run the rules: `nft -f /etc/nftables.conf`
+
+You can check if it's applied with: `nft list ruleset`
+
+To flush all: ```nft flush ruleset```
+
 Add this to `/etc/rc.local` to enable routing:
 ```
 echo 1 > /proc/sys/net/ipv4/ip_forward
@@ -138,19 +154,5 @@ subnet 192.168.86.0 netmask 255.255.255.0 {
 - Set interface to startup options: `sed -i 's/INTERFACES=""/INTERFACES="br0"/g' /etc/default/isc-dhcp-server`
 - Restart the server: `/etc/init.d/isc-dhcp-server restart`
 
-# Firewall rules
 
-In the PoC used in El Gouna, the firewall was setup using nftables.
-The ruleset can be found on the `nftables.conf` file.
-
-This firewall rules makes transparent redirections and some basic filtering.
-Apply it at the end to make the redirections works when all the proxies are set up.
-
-- Copy the firewall rules file to the system one: `cp /opt/dnsmasq-alt/nftables.conf /etc/`
-- Set the interface correctly: `sed -i s/eth1/WAN_INTERFACE/g /etc/nftables.conf` (adapt WAN_INTERFACE)
-- Run the rules: `nft -f /etc/nftables.conf`
-
-You can check if it's applied with: `nft list ruleset`
-
-To flush all: ```nft flush ruleset```
 
