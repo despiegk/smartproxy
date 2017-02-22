@@ -113,10 +113,20 @@ Note2: it's possible that the interface doesn't join the bridge itself, if it's 
 
 Some http(s) filtering was made with [mitmproxy](https://github.com/mitmproxy/mitmproxy).
 
-- Install the dependancies: `apt-get install python-pip python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev`
-- Pre-install some conflicting dependancies: `pip3 install cffi`
-- Install last version: `pip3 install git+https://github.com/mitmproxy/mitmproxy.git`
-- Start the server (in a tmux): `mitmdump -T -d -p 8443 -s /opt/dnsmasq-alt/http-filter.py`
+- Install mitm
+
+```bash
+set -ex
+apt-get install python-pip python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev
+pip3 install cffi
+pip3 install git+https://github.com/mitmproxy/mitmproxy.git
+```
+
+- Start the server (in a tmux): 
+```
+source /opt/jumpscale8/env.sh
+mitmdump -T -d -p 8443 -s /opt/dnsmasq-alt/http-filter.py
+```
 
 alternatives
 ```
