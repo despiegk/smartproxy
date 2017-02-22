@@ -54,9 +54,19 @@ Note: replace `eno1` with your local interface of course.
 - You can (need) *reboot* now to make sur all is applied.
 - do not replace if you don't have a local LAN ethernet card
 
+# install jumpscale
 
+- see https://github.com/Jumpscale/jumpscale_core8/tree/8.2.0_ays_noHrd  (branch can be changed by now)
 
-# The basics
+```
+cd $TMPDIR
+rm -f install.sh
+export JSBRANCH="8.2.0_ays_noHrd"
+curl -k https://raw.githubusercontent.com/Jumpscale/jumpscale_core8/$JSBRANCH/install/install.sh?$RANDOM > install.sh
+bash install.sh
+```
+
+# Get This Repo
 
 Clone this repo on the router, then to make it easy, make a symlink to access it in a safe way
 (to follow this README correctly):
@@ -66,9 +76,6 @@ cd /opt/code/github/jumpscale
 git clone https://github.com/despiegk/smartproxy
 ln -s /opt/code/github/jumpscale/smartproxy /opt/dnsmasq-alt
 ```
-
-And install jumpscale8 which will be needed:
-- see https://github.com/Jumpscale/jumpscale_core8/tree/8.2.0_ays_noHrd  (branch can be changed by now)
 
 It's useful to run every daemons in a tmux session to be able to watch them easier.
 
@@ -162,9 +169,15 @@ subnet 192.168.86.0 netmask 255.255.255.0 {
   max-lease-time 7200;
 }
 ```
-- Apply some fix on the config: `sed -i 's/^option domain-name/#option domain-name/g' /etc/dhcp/dhcpd.conf`
-- Set interface to startup options: `sed -i 's/INTERFACES=""/INTERFACES="br0"/g' /etc/default/isc-dhcp-server`
-- Restart the server: `/etc/init.d/isc-dhcp-server restart`
 
+- Apply some fix on the config: 
+```
+set -ex
+sed -i 's/^option domain-name/#option domain-name/g' /etc/dhcp/dhcpd.conf
+#Set interface to startup options: 
+sed -i 's/INTERFACES=""/INTERFACES="br0"/g' /etc/default/isc-dhcp-server
+#Restart the server: 
+/etc/init.d/isc-dhcp-server restart
+```
 
 
