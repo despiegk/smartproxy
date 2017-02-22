@@ -134,7 +134,8 @@ pip3 install git+https://github.com/mitmproxy/mitmproxy.git
 - Start the server (in a tmux): 
 ```
 source /opt/jumpscale8/env.sh
-mitmdump -T -d -p 8443 -s /opt/dnsmasq-alt/http-filter.py
+cd /opt/dnsmasq-alt
+mitmdump -T -d -p 8443 -s http-filter.py
 ```
 
 alternatives
