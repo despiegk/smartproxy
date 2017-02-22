@@ -18,6 +18,11 @@ iface br0 inet static
   bridge_ports eno1
 
 ```
+# install zerotier
+
+```
+curl -s https://install.zerotier.com/ | bash
+```
 
 # Firewall rules
 
@@ -39,20 +44,17 @@ Add this to `/etc/rc.local` to enable routing:
 ```
 echo 1 > /proc/sys/net/ipv4/ip_forward
 nft -f /etc/nftables.conf
+
+zerotier-one -d
+zerotier-cli join e5cd7a9e1ceb010b
+
 ```
 
 Note: replace `eno1` with your local interface of course. 
 - You can (need) *reboot* now to make sur all is applied.
 - do not replace if you don't have a local LAN ethernet card
 
-# install zerotier
 
-```
-curl -s https://install.zerotier.com/ | bash
-```
-
-- in tmux do ```zerotier-one```
-- in shell do ```zerotier-cli join $networkid```
 
 # The basics
 
