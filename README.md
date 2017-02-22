@@ -32,13 +32,22 @@ The ruleset can be found on the `nftables.conf` file.
 This firewall rules makes transparent redirections and some basic filtering.
 Apply it at the end to make the redirections works when all the proxies are set up.
 
-- Copy the firewall rules file to the system one: `cp /opt/dnsmasq-alt/nftables.conf /etc/`
-- Set the interface correctly: `sed -i s/eth1/WAN_INTERFACE/g /etc/nftables.conf` (adapt WAN_INTERFACE)
-- Run the rules: `nft -f /etc/nftables.conf`
+```
+cp /opt/dnsmasq-alt/nftables.conf /etc/
+sed -i 's/$waniface/WAN_INTERFACE/g' /etc/nftables.conf
+sed -i 's/$range/192.168.86/g' /etc/nftables.conf
+#run the rules
+nft -f /etc/nftables.conf
+#list the rules
+nft list ruleset
+``` 
 
-You can check if it's applied with: `nft list ruleset`
+- adapt WAN_INTERFACE
 
-To flush all: ```nft flush ruleset```
+To flush all: 
+```
+nft flush ruleset
+```
 
 Add this to `/etc/rc.local` to enable routing:
 ```
@@ -128,7 +137,8 @@ Some http(s) filtering was made with [mitmproxy](https://github.com/mitmproxy/mi
 set -ex
 apt-get install python-pip python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev
 pip3 install cffi
-pip3 install git+https://github.com/mitmproxy/mitmproxy.git
+#pip3 install git+https://github.com/mitmproxy/mitmproxy.git
+pip3 install mitmproxy
 ```
 
 - Start the server (in a tmux): 
