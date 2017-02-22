@@ -25,7 +25,18 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 nft -f /etc/nftables.conf
 ```
 
-Note: replace `eno1` with your local interface of course. You can (need) *reboot* now to make sur all is applied.
+Note: replace `eno1` with your local interface of course. 
+- You can (need) *reboot* now to make sur all is applied.
+- do not replace if you don't have a local LAN ethernet card
+
+# install zerotier
+
+```
+curl -s https://install.zerotier.com/ | bash
+```
+
+- in tmux do ```zerotier-one```
+- in shell do ```zerotier-cli join $networkid```
 
 # The basics
 
@@ -76,7 +87,7 @@ need to find '0bda:818b'
 - to see the interface to 'ip a'
 
 
-Run hostapd (in a tmux): `/opt/netpoc/hostapd-2.5/hostapd/hostapd /opt/dnsmasq-alt/wifi-special-dongle/hostapd.conf`
+Run hostapd (in a tmux): `/opt/netpoc/hostapd-2.6/hostapd/hostapd /opt/dnsmasq-alt/wifi-special-dongle/hostapd.conf`
 
 Note: you will need to change the wireless interface in the config file.
 Note2: it's possible that the interface doesn't join the bridge itself, if it's the case
